@@ -1,0 +1,114 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — Activity Timeline Card
+   ═══════════════════════════════════════════════════════════ */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: var(--space-1);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: var(--space-6);
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: var(--color-border-primary);
+}
+
+.timelineItem {
+  position: relative;
+  padding-bottom: var(--space-5);
+}
+
+.timelineItem:last-child {
+  padding-bottom: 0;
+}
+
+.timelineNode {
+  position: absolute;
+  left: -24px;
+  top: 3px;
+  width: 15px;
+  height: 15px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.timelineNode.active {
+  border-color: var(--color-accent);
+}
+
+.timelineNodeDot {
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background: var(--color-text-tertiary);
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.timelineNode.active .timelineNodeDot {
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent);
+}
+
+.timelineContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.timelineHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.timelineTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+.timelineTime {
+  font-size: var(--text-micro);
+  font-family: var(--font-mono);
+  color: var(--color-text-tertiary);
+}
+
+.timelineDesc {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* ─── Type Specific Nodes ─── */
+.crowd .timelineNodeDot { background: var(--color-warning); }
+.crowd .timelineNode.active { border-color: var(--color-warning); }
+.security .timelineNodeDot { background: var(--color-danger); }
+.security .timelineNode.active { border-color: var(--color-danger); }
+.medical .timelineNodeDot { background: var(--color-danger); }
+.medical .timelineNode.active { border-color: var(--color-danger); }
+.weather .timelineNodeDot { background: var(--color-success); }
+.weather .timelineNode.active { border-color: var(--color-success); }
+.transport .timelineNodeDot { background: var(--color-info); }
+.transport .timelineNode.active { border-color: var(--color-info); }
+.system .timelineNodeDot { background: var(--color-accent); }
+.system .timelineNode.active { border-color: var(--color-accent); }

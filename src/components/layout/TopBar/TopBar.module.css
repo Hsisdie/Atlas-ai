@@ -1,0 +1,270 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — TopBar
+   Top navigation with search, notifications, and user avatar.
+   ═══════════════════════════════════════════════════════════ */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: var(--topbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-6);
+  background: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border-secondary);
+  z-index: var(--z-sticky);
+  transition: left var(--duration-normal) var(--ease-in-out);
+}
+
+.topbar.expanded {
+  left: var(--sidebar-width);
+}
+
+.topbar.collapsed {
+  left: var(--sidebar-width-collapsed);
+}
+
+/* ─── Left Section ─── */
+.left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.pageInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.pageTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+
+.breadcrumb {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.breadcrumb span {
+  color: var(--color-text-tertiary);
+}
+
+/* ─── Search ─── */
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+  min-width: 240px;
+}
+
+.search:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-bg-tertiary);
+}
+
+.search svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.searchText {
+  font-size: var(--text-sm);
+  flex: 1;
+}
+
+.searchShortcut {
+  font-size: var(--text-micro);
+  font-family: var(--font-mono);
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-tertiary);
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--color-border-primary);
+}
+
+/* ─── Right Section ─── */
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+  position: relative;
+  background: none;
+  border: none;
+}
+
+.iconButton:hover {
+  background: var(--color-bg-hover);
+  color: var(--color-text-primary);
+}
+
+.iconButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.notificationDot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  background: var(--color-danger);
+  border: 2px solid var(--color-bg-primary);
+  border-radius: var(--radius-full);
+}
+
+/* ─── Divider ─── */
+.divider {
+  width: 1px;
+  height: 24px;
+  background: var(--color-border-primary);
+  margin: 0 var(--space-2);
+}
+
+/* ─── Avatar ─── */
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-accent) 0%, hsl(250, 80%, 60%) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: white;
+  cursor: pointer;
+  transition: box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.avatar:hover {
+  box-shadow: 0 0 0 2px var(--color-bg-primary), 0 0 0 4px var(--color-accent-muted);
+}
+
+/* ─── Live Indicator ─── */
+.liveIndicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-success-subtle);
+  border-radius: var(--radius-full);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium);
+  color: var(--color-success);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+/* ─── Phase Indicator ─── */
+.phaseIndicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+}
+
+.phaseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+}
+
+.phaseIndicator.nominal {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+}
+.phaseIndicator.nominal .phaseDot { background: var(--color-success); }
+
+.phaseIndicator.alert {
+  background: var(--color-warning-subtle);
+  color: var(--color-warning);
+}
+.phaseIndicator.alert .phaseDot { background: var(--color-warning); animation: blink 1.5s ease-in-out infinite; }
+
+.phaseIndicator.crisis {
+  background: var(--color-danger-subtle);
+  color: var(--color-danger);
+  animation: pulseGlow 2s infinite;
+}
+.phaseIndicator.crisis .phaseDot { background: var(--color-danger); animation: blink 0.8s ease-in-out infinite; }
+
+.phaseIndicator.recovery {
+  background: var(--color-info-muted);
+  color: var(--color-info);
+}
+.phaseIndicator.recovery .phaseDot { background: var(--color-info); }
+
+/* ─── AI Status ─── */
+.aiStatus {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-caption);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+}
+
+.aiThinkingDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  animation: thinkingPulse 1s infinite ease-in-out;
+}
+
+/* ─── Notification Badge ─── */
+.notificationBadge {
+  position: absolute;
+  top: 0px;
+  right: -2px;
+  background: var(--color-danger);
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 0 4px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-bg-primary);
+  min-width: 16px;
+  text-align: center;
+}

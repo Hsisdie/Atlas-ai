@@ -1,0 +1,45 @@
+{
+  "name": "atlas-ai",
+  "version": "1.0.0",
+  "description": "Atlas AI - A professional multi-agent system, digital twin, and scenario simulator.",
+  "keywords": [
+    "ai",
+    "digital-twin",
+    "multi-agent",
+    "simulation",
+    "react",
+    "gemini"
+  ],
+  "homepage": "https://github.com/PromptWars/atlas-ai#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PromptWars/atlas-ai.git"
+  },
+  "author": "PromptWars 2026 Team",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@google/genai": "^2.12.0",
+    "framer-motion": "^12.42.2",
+    "lucide-react": "^1.24.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.18.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "oxlint": "^1.71.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1"
+  }
+}

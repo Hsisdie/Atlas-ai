@@ -1,0 +1,70 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — Emergency Status Card
+   ═══════════════════════════════════════════════════════════ */
+.content { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.stat {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 2px; padding: var(--space-3);
+  background: var(--color-bg-tertiary); border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-secondary);
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.stat:hover { border-color: var(--color-border-hover); }
+
+.statValue {
+  font-size: var(--text-h3); font-weight: var(--weight-bold);
+  font-family: var(--font-mono); color: var(--color-text-primary);
+}
+
+.statLabel {
+  font-size: var(--text-micro); color: var(--color-text-tertiary);
+  text-transform: uppercase; letter-spacing: var(--tracking-wider); text-align: center;
+}
+
+.readiness {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-3); background: var(--color-success-subtle);
+  border-radius: var(--radius-md);
+}
+
+.readinessLabel {
+  font-size: var(--text-caption); color: var(--color-success);
+  font-weight: var(--weight-medium);
+}
+
+.readinessValue {
+  font-size: var(--text-sm); font-weight: var(--weight-bold);
+  font-family: var(--font-mono); color: var(--color-success);
+}
+
+.incidents { display: flex; flex-direction: column; gap: var(--space-2); }
+
+.incident {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-tertiary);
+  font-size: var(--text-caption);
+}
+
+.incidentDot {
+  width: 6px; height: 6px; border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.incidentDesc { flex: 1; color: var(--color-text-secondary); }
+.incidentTime { color: var(--color-text-tertiary); font-family: var(--font-mono); font-size: var(--text-micro); }
+
+.incidentStatus {
+  font-size: var(--text-micro); font-weight: var(--weight-medium);
+  text-transform: uppercase; letter-spacing: var(--tracking-wide);
+  padding: 1px 6px; border-radius: var(--radius-full);
+}

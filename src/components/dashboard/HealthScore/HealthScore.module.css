@@ -1,0 +1,165 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — Stadium Health Score
+   The hero metric card with animated radial gauge.
+   ═══════════════════════════════════════════════════════════ */
+
+.card {
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+/* ─── Gauge ─── */
+.gaugeContainer {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+}
+
+.gaugeSvg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.gaugeTrack {
+  fill: none;
+  stroke: var(--color-bg-hover);
+  stroke-width: 8;
+}
+
+.gaugeProgress {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.5s var(--ease-spring);
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+.gaugeCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gaugeValue {
+  font-size: var(--text-display);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  letter-spacing: var(--tracking-tighter);
+  line-height: 1;
+}
+
+.gaugeLabel {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  margin-top: var(--space-1);
+}
+
+/* ─── Info ─── */
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.eventName {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+
+.eventMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+.metaDot {
+  width: 3px;
+  height: 3px;
+  background: var(--color-text-tertiary);
+  border-radius: var(--radius-full);
+}
+
+.matchMinute {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-success);
+  font-weight: var(--weight-medium);
+}
+
+.matchMinuteDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+/* ─── Quick Stats ─── */
+.quickStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-secondary);
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.stat:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-bg-hover);
+}
+
+.statValue {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+}
+
+.statLabel {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+/* ─── Ambient glow ─── */
+.ambientGlow {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  border-radius: var(--radius-full);
+  filter: blur(80px);
+  opacity: 0.12;
+  pointer-events: none;
+  animation: breathe 4s ease-in-out infinite;
+}

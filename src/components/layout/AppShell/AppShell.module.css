@@ -1,0 +1,77 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — AppShell
+   Main application layout container.
+   ═══════════════════════════════════════════════════════════ */
+
+.shell {
+  display: flex;
+  height: 100vh;
+  background: var(--color-bg-root);
+  position: relative;
+  overflow: hidden;
+}
+
+.ambientParticles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0;
+  animation: particleFloat 15s infinite linear;
+}
+
+.main {
+  flex: 1;
+  margin-top: var(--topbar-height);
+  transition: margin-left var(--duration-normal) var(--ease-in-out);
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--topbar-height));
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.main.expanded {
+  margin-left: var(--sidebar-width);
+}
+
+.main.collapsed {
+  margin-left: var(--sidebar-width-collapsed);
+}
+
+.content {
+  flex: 1;
+  padding: var(--content-padding);
+  max-width: var(--content-max-width);
+  width: 100%;
+  margin: 0 auto;
+  animation: fadeIn var(--duration-normal) var(--ease-default);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .main.expanded {
+    margin-left: var(--sidebar-width-collapsed);
+  }
+}
+
+@media (max-width: 768px) {
+  .main.expanded,
+  .main.collapsed {
+    margin-left: 0;
+  }
+
+  .content {
+    padding: var(--space-4);
+  }
+}

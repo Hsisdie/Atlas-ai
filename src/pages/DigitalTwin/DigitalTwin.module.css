@@ -1,0 +1,575 @@
+/* ═══════════════════════════════════════════════════════════
+   DigitalTwin CSS Module
+   ═══════════════════════════════════════════════════════════ */
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--space-6);
+  padding-bottom: var(--space-8);
+  height: calc(100vh - var(--topbar-height) - var(--space-12));
+  min-height: 650px;
+}
+
+/* ─── Visualizer Column ─── */
+.visualizerColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  height: 100%;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+}
+
+.toolGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.toolbarLabel {
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+/* ─── Viewport ─── */
+.viewportContainer {
+  position: relative;
+  flex: 1;
+  background: radial-gradient(circle at center, hsl(228, 25%, 8%), hsl(228, 30%, 4%));
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-inner), var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+/* Technical Grid Background Pattern */
+.viewportBg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(30, 40, 60, 0.4) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.groundPlane {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  left: -50%;
+  top: -50%;
+  background-size: 60px 60px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  transform: translateZ(-30px);
+  pointer-events: none;
+  mask-image: radial-gradient(circle at center, black 20%, transparent 60%);
+  -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 60%);
+}
+
+/* Visualizer Controls HUD */
+.hudControls {
+  position: absolute;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  background: var(--glass-bg-heavy);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.hudButton {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.hudButton:hover {
+  background: var(--color-bg-hover);
+  border-color: var(--color-accent);
+  color: var(--color-accent-text);
+}
+
+/* SVG Stadium Wrapper */
+.stadiumWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  cursor: grab;
+}
+
+.stadiumWrapper:active {
+  cursor: grabbing;
+}
+
+.stadiumSvg {
+  width: 90%;
+  height: 90%;
+  max-width: 800px;
+  max-height: 800px;
+  transform-style: preserve-3d;
+  overflow: visible;
+}
+
+/* ─── 3D Projected SVG Elements ─── */
+.projectedLayer {
+  transform-style: preserve-3d;
+  transition: transform var(--duration-slow) var(--ease-spring);
+}
+
+.zonePath {
+  transition: all var(--duration-normal) var(--ease-default);
+  cursor: pointer;
+  outline: none;
+  /* Simulated 3D thickness with chained drop shadows */
+  filter: drop-shadow(0px 2px 0px rgba(10, 15, 30, 0.8)) drop-shadow(0px 4px 0px rgba(10, 15, 30, 0.7)) drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.5));
+}
+
+.zonePath:hover {
+  filter: drop-shadow(0px 4px 0px rgba(10, 15, 30, 0.6)) drop-shadow(0px 8px 0px rgba(10, 15, 30, 0.5)) drop-shadow(0px 15px 20px rgba(0, 0, 0, 0.6)) brightness(1.25) saturate(1.1);
+  stroke-width: 2.5px;
+  transform: translateY(-8px);
+}
+
+.zoneSelected {
+  stroke-width: 3px !important;
+  filter: drop-shadow(0px 6px 0px rgba(10, 15, 30, 0.8)) drop-shadow(0px 20px 25px var(--color-accent-muted)) brightness(1.3) !important;
+  transform: translateY(-12px);
+}
+
+/* Facilities Markers */
+.markerGroup {
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform var(--duration-fast) var(--ease-default);
+}
+
+.markerGroup:hover {
+  transform: scale(1.2);
+}
+
+.markerPin {
+  stroke: var(--color-bg-root);
+  stroke-width: 1.5;
+  transition: fill var(--duration-fast);
+}
+
+.markerPulse {
+  animation: markerPulseAnimation 2s infinite ease-out;
+  transform-origin: center;
+}
+
+@keyframes markerPulseAnimation {
+  0% {
+    r: 6px;
+    opacity: 0.8;
+  }
+
+  100% {
+    r: 16px;
+    opacity: 0;
+  }
+}
+
+.markerText {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: var(--weight-medium);
+  fill: var(--color-text-primary);
+  paint-order: stroke;
+  stroke: var(--color-bg-root);
+  stroke-width: 3px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Zone Alert Icon */
+.zoneAlertIndicator {
+  animation: alertPulse 1.5s infinite ease-in-out;
+}
+
+@keyframes alertPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: scale(1.25);
+    opacity: 0.5;
+  }
+}
+
+/* Evacuation Route Flow */
+.evacRoute {
+  stroke-dasharray: 10, 15;
+  animation: evacRouteFlow 1.5s linear infinite;
+  filter: drop-shadow(0 0 8px var(--color-success));
+}
+
+@keyframes evacRouteFlow {
+  to {
+    stroke-dashoffset: -25;
+  }
+}
+
+/* ─── Alive Digital Twin Enhancements (Hackathon) ─── */
+
+.emergencyPulse {
+  animation: mapPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  fill: rgba(239, 68, 68, 0.15) !important;
+  stroke: rgba(239, 68, 68, 0.8) !important;
+  stroke-width: 3px !important;
+}
+
+@keyframes mapPulse {
+  0% {
+    filter: drop-shadow(0 0 0 rgba(239, 68, 68, 0.5));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.8));
+  }
+
+  100% {
+    filter: drop-shadow(0 0 0 rgba(239, 68, 68, 0.5));
+  }
+}
+
+/* Moving crowd simulation */
+.crowdParticle {
+  fill: rgba(255, 255, 255, 0.6);
+  animation: crowdDrift 8s infinite alternate ease-in-out;
+}
+
+@keyframes crowdDrift {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(4px, -2px);
+  }
+
+  50% {
+    transform: translate(2px, 5px);
+  }
+
+  75% {
+    transform: translate(-3px, 1px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.futureProjectionWrapper {
+  position: absolute;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 800px;
+  z-index: 100;
+}
+
+/* ─── Sidebar Column ─── */
+.sidebarColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  height: 100%;
+  overflow-y: auto;
+  padding-right: var(--space-1);
+}
+
+/* Stats HUD */
+.statsCard {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.statLabel {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+.statValue {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+}
+
+/* Inspector Panel */
+.inspectorContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 350px;
+}
+
+.emptyInspector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-3);
+  padding: var(--space-8);
+  height: 100%;
+  color: var(--color-text-tertiary);
+  border: 1px dashed var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.inspectorIcon {
+  color: var(--color-text-tertiary);
+  opacity: 0.4;
+}
+
+.inspectorHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.inspectorTitleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.inspectorType {
+  font-size: var(--text-micro);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+.inspectorName {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.inspectorContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.simulatorControl {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sliderHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+.sliderLabel {
+  font-weight: var(--weight-medium);
+}
+
+.sliderValue {
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+}
+
+.sliderInput {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-tertiary);
+  outline: none;
+  border: 1px solid var(--color-border-primary);
+  transition: border-color var(--duration-fast);
+}
+
+.sliderInput:hover {
+  border-color: var(--color-border-hover);
+}
+
+.sliderInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  border: 2px solid var(--color-text-primary);
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--color-accent-muted);
+  transition: transform var(--duration-instant) var(--ease-default);
+}
+
+.sliderInput::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.inspectorMetadata {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  background: var(--color-bg-tertiary);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-primary);
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metaLabel {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+}
+
+.metaValue {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+.tagsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tagItem {
+  font-size: var(--text-micro);
+  padding: 4px var(--space-3);
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-full);
+}
+
+/* Evacuation Simulation HUD */
+.evacuationBlock {
+  border-top: 1px solid var(--color-border-primary);
+  padding-top: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.evacTimerBlock {
+  background: var(--color-danger-subtle);
+  border: 1px solid rgba(255, 72, 72, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.evacTimerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-caption);
+  color: var(--color-danger);
+  font-weight: var(--weight-semibold);
+}
+
+.evacTimeValue {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+}
+
+.evacProgressBar {
+  width: 100%;
+  height: 6px;
+  background: var(--color-bg-root);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.evacProgressFill {
+  height: 100%;
+  background: var(--color-danger);
+  border-radius: var(--radius-full);
+  transition: width 1s linear;
+}
+
+/* Responsive adapt */
+@media (max-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .sidebarColumn {
+    height: auto;
+    overflow-y: visible;
+  }
+}

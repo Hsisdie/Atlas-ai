@@ -1,0 +1,60 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — CommandCenter Layout
+   Premium dashboard grid layout with optimal responsiveness.
+   ═══════════════════════════════════════════════════════════ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-bottom: var(--space-12);
+}
+
+/* ─── Top Stats Grid ─── */
+.topGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-6);
+}
+
+/* ─── Main Content Grid ─── */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-6);
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ─── Sub-grid inside Left Column ─── */
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+/* ─── Responsive Adjustments ─── */
+@media (max-width: 1280px) {
+  .topGrid {
+    grid-template-columns: 1fr;
+  }
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+}

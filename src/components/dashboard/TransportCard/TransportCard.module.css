@@ -1,0 +1,102 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — Transport Card
+   ═══════════════════════════════════════════════════════════ */
+.content { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.mode {
+  padding: var(--space-3);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.mode:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-bg-hover);
+}
+
+.modeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modeName {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.modeIcon {
+  display: flex;
+  color: var(--color-text-tertiary);
+}
+
+.modeIcon svg { width: 14px; height: 14px; }
+
+.modeValue {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+}
+
+.modeLabel {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+}
+
+.modeMeta {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.surgeTag {
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  color: var(--color-warning);
+  background: var(--color-warning-subtle);
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+}
+
+.dispersal {
+  padding: var(--space-3);
+  background: var(--color-accent-subtle);
+  border: 1px solid hsla(215, 100%, 58%, 0.12);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.dispersalIcon {
+  color: var(--color-accent);
+  display: flex;
+}
+
+.dispersalIcon svg { width: 16px; height: 16px; }
+
+.dispersalText {
+  font-size: var(--text-caption);
+  color: var(--color-accent-text);
+}
+
+.dispersalValue {
+  font-weight: var(--weight-semibold);
+}

@@ -1,0 +1,201 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — Card Component
+   Versatile card with glass effects and interaction states.
+   ═══════════════════════════════════════════════════════════ */
+
+.card {
+  position: relative;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition:
+    border-color var(--duration-normal) var(--ease-default),
+    box-shadow var(--duration-normal) var(--ease-default),
+    transform var(--duration-normal) var(--ease-default),
+    background-color var(--duration-normal) var(--ease-default);
+}
+
+/* ─── Variants ─── */
+.default {
+  background: var(--color-bg-secondary);
+}
+
+.elevated {
+  background: var(--color-bg-elevated);
+  box-shadow: var(--shadow-md);
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-color: var(--glass-border);
+}
+
+.ghost {
+  background: transparent;
+  border-color: transparent;
+}
+
+.outlined {
+  background: transparent;
+  border-color: var(--color-border-primary);
+}
+
+/* ─── Interactive ─── */
+.interactive {
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+.interactive::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px transparent;
+  transition: box-shadow var(--duration-normal) var(--ease-default);
+  pointer-events: none;
+}
+
+.interactive:hover {
+  background: var(--color-bg-tertiary);
+  box-shadow: var(--shadow-lg), 0 12px 24px -12px hsla(215, 100%, 58%, 0.1);
+  transform: translateY(-2px) scale(1.01);
+  border-color: var(--color-border-hover);
+}
+
+.interactive:hover::after {
+  box-shadow: inset 0 0 0 1px hsla(215, 100%, 58%, 0.2);
+}
+
+.interactive:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Glass interactive */
+.glass.interactive:hover {
+  background: hsla(228, 22%, 10%, 0.75);
+  box-shadow: var(--shadow-xl), 0 0 40px -10px hsla(215, 100%, 58%, 0.15);
+}
+
+/* ─── Padding ─── */
+.noPadding {
+  padding: 0;
+}
+
+.sm {
+  padding: var(--space-3);
+}
+
+.md {
+  padding: var(--space-5);
+}
+
+.lg {
+  padding: var(--space-6);
+}
+
+/* ─── Header ─── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.headerIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent-subtle);
+  color: var(--color-accent);
+}
+
+.headerIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.headerTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+
+.headerSubtitle {
+  font-size: var(--text-caption);
+  color: var(--color-text-tertiary);
+  margin-top: 1px;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ─── Glow Effect ─── */
+.glow {
+  position: relative;
+}
+
+.glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-accent-gradient);
+  opacity: 0.5;
+  transition: opacity var(--duration-normal) var(--ease-default);
+}
+
+.glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--glass-shimmer);
+  background-size: 200% 100%;
+  animation: glassShimmer 3s infinite linear;
+  opacity: 0.8;
+  z-index: 2;
+}
+
+.glow:hover::before {
+  opacity: 1;
+}
+
+/* ─── Phase Overrides (added via global context later) ─── */
+:global([data-phase="crisis"]) .glow::before {
+  background: linear-gradient(90deg, transparent, var(--color-danger), transparent);
+}
+:global([data-phase="crisis"]) .glow::after {
+  background: linear-gradient(90deg, transparent, hsla(0, 72%, 58%, 0.4), transparent);
+}
+
+/* ─── Status Accent ─── */
+.statusAccent {
+  border-top: 2px solid;
+}
+
+.statusAccent.operational { border-top-color: var(--color-success); }
+.statusAccent.warning     { border-top-color: var(--color-warning); }
+.statusAccent.critical    { border-top-color: var(--color-danger); }
+.statusAccent.info        { border-top-color: var(--color-info); }

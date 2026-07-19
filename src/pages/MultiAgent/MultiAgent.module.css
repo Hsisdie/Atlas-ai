@@ -1,0 +1,519 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — Multi-Agent AI Page  (Milestone 6)
+   Visual agent reasoning flow with coordinator synthesis.
+   ═══════════════════════════════════════════════════════════ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  animation: fadeIn var(--duration-slow) var(--ease-out);
+}
+
+/* ─── Status Bar ─── */
+.statusBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+}
+
+.statusLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.agentBadge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: hsla(280, 80%, 60%, 0.1);
+  border: 1px solid hsla(280, 80%, 60%, 0.3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  color: hsl(280, 80%, 70%);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.agentBadge svg {
+  width: 14px;
+  height: 14px;
+}
+
+.agentCount {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.agentCount strong {
+  color: var(--color-text-primary);
+}
+
+/* ─── Run Button ─── */
+.runBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  background: linear-gradient(135deg, hsl(280, 80%, 55%), hsl(260, 80%, 50%));
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-default);
+  box-shadow: 0 0 20px hsla(280, 80%, 60%, 0.2);
+}
+
+.runBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 30px hsla(280, 80%, 60%, 0.35);
+}
+
+.runBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.runBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ─── Agent Grid ─── */
+.agentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-4);
+}
+
+.agentCard {
+  position: relative;
+  padding: var(--space-5);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-default);
+  overflow: hidden;
+}
+
+.agentCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  transition: background var(--duration-normal) var(--ease-default);
+}
+
+.agentCard:hover {
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.agentCard.processing {
+  animation: pulseGlow 2s var(--ease-in-out) infinite;
+}
+
+.agentCard.complete::before {
+  background: var(--glow-color, var(--color-accent));
+}
+
+.agentCard.coordinator {
+  grid-column: 1 / -1;
+  border-color: hsla(280, 80%, 60%, 0.2);
+  background: hsla(280, 80%, 60%, 0.03);
+}
+
+.agentHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.agentIdentity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.agentAvatar {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.agentAvatar svg {
+  width: 20px;
+  height: 20px;
+}
+
+.agentAvatar::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  opacity: 0;
+  transition: all var(--duration-normal) var(--ease-default);
+}
+
+.agentCard.processing .agentAvatar::after {
+  opacity: 1;
+  animation: spin 2s linear infinite;
+}
+
+.agentName {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.agentRole {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.agentStatus {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.statusIndicator {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+}
+
+.statusIndicator.idle {
+  background: var(--color-text-tertiary);
+}
+
+.statusIndicator.processing {
+  background: var(--color-accent);
+  animation: pulse 1.5s var(--ease-in-out) infinite;
+}
+
+.statusIndicator.complete {
+  background: var(--color-success);
+}
+
+.statusIndicator.error {
+  background: var(--color-danger);
+}
+
+.statusLabel {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  text-transform: capitalize;
+}
+
+/* ─── Agent Insights ─── */
+.insightList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.insightItem {
+  padding: var(--space-3);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--color-border-primary);
+  transition: all var(--duration-normal) var(--ease-default);
+}
+
+.insightItem:hover {
+  border-left-color: var(--insight-color, var(--color-accent));
+}
+
+.insightTitle {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.insightDesc {
+  font-size: var(--text-micro);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-2);
+}
+
+.dataPoints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.dataPoint {
+  font-size: 10px;
+  padding: 1px var(--space-2);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-xs);
+  color: var(--color-text-tertiary);
+  font-family: var(--font-mono);
+}
+
+.agentMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-secondary);
+}
+
+.agentMetaItem {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.agentMetaItem svg {
+  width: 12px;
+  height: 12px;
+}
+
+.confidenceBar {
+  width: 60px;
+  height: 4px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.confidenceFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 1s var(--ease-out);
+}
+
+/* ─── Flow Visualization ─── */
+.flowSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-6) 0;
+}
+
+.flowArrows {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.flowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  animation: pulse 1.5s var(--ease-in-out) infinite;
+}
+
+.flowLine {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-muted));
+  animation: shimmer 2s linear infinite;
+  background-size: 200% 100%;
+}
+
+.flowLabel {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  font-weight: var(--weight-semibold);
+}
+
+/* ─── Coordinator Plan ─── */
+.planSection {
+  animation: slideInUp var(--duration-slow) var(--ease-out);
+}
+
+.planHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.planTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.planTitle svg {
+  width: 16px;
+  height: 16px;
+  color: hsl(280, 80%, 60%);
+}
+
+.consensusBadge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: hsla(152, 60%, 48%, 0.1);
+  border: 1px solid hsla(152, 60%, 48%, 0.3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  color: var(--color-success);
+  font-family: var(--font-mono);
+}
+
+.planSummary {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-5);
+  padding: var(--space-4);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  border-left: 3px solid hsl(280, 80%, 60%);
+}
+
+.planActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.planAction {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  transition: all var(--duration-normal) var(--ease-default);
+}
+
+.planAction:hover {
+  border-color: var(--color-border-hover);
+}
+
+.actionNumber {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: hsla(280, 80%, 60%, 0.1);
+  color: hsl(280, 80%, 70%);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+.actionContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.actionTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.actionReasoning {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-2);
+}
+
+.actionAgents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.sourceAgent {
+  font-size: 10px;
+  padding: 1px var(--space-2);
+  background: hsla(280, 80%, 60%, 0.08);
+  border-radius: var(--radius-xs);
+  color: hsl(280, 80%, 70%);
+  font-weight: var(--weight-medium);
+}
+
+.actionPriority {
+  flex-shrink: 0;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.actionPriority.critical {
+  background: var(--color-danger-muted);
+  color: var(--color-danger);
+}
+
+.actionPriority.high {
+  background: var(--color-warning-muted);
+  color: var(--color-warning);
+}
+
+.actionPriority.medium {
+  background: var(--color-accent-muted);
+  color: var(--color-accent-text);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .agentGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .agentCard.coordinator {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .agentGrid {
+    grid-template-columns: 1fr;
+  }
+}

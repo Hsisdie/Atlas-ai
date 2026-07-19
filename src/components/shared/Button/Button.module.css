@@ -1,0 +1,167 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — Button Component
+   Premium button with variants, sizes, and micro-interactions.
+   ═══════════════════════════════════════════════════════════ */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-tight);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: 
+    background-color var(--duration-fast) var(--ease-default),
+    border-color var(--duration-fast) var(--ease-default),
+    box-shadow var(--duration-fast) var(--ease-default),
+    transform var(--duration-fast) var(--ease-default),
+    opacity var(--duration-fast) var(--ease-default);
+  white-space: nowrap;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ─── Sizes ─── */
+.sm {
+  height: 30px;
+  padding: 0 var(--space-3);
+  font-size: var(--text-caption);
+}
+
+.md {
+  height: 36px;
+  padding: 0 var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.lg {
+  height: 42px;
+  padding: 0 var(--space-6);
+  font-size: var(--text-body);
+}
+
+/* ─── Variants ─── */
+.primary {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  box-shadow: var(--shadow-glow);
+}
+
+.secondary {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-primary);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--color-bg-hover);
+  border-color: var(--color-border-hover);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--color-bg-hover);
+  color: var(--color-text-primary);
+}
+
+.danger {
+  background: var(--color-danger-muted);
+  color: var(--color-danger);
+  border-color: transparent;
+}
+
+.danger:hover:not(:disabled) {
+  background: var(--color-danger);
+  color: white;
+}
+
+.success {
+  background: var(--color-success-muted);
+  color: var(--color-success);
+  border-color: transparent;
+}
+
+.success:hover:not(:disabled) {
+  background: var(--color-success);
+  color: white;
+}
+
+/* ─── Icon Only ─── */
+.iconOnly {
+  padding: 0;
+  aspect-ratio: 1;
+}
+
+.iconOnly.sm { width: 30px; }
+.iconOnly.md { width: 36px; }
+.iconOnly.lg { width: 42px; }
+
+/* ─── Loading State ─── */
+.loading {
+  color: transparent;
+  pointer-events: none;
+}
+
+.spinner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: var(--radius-full);
+  animation: spin var(--duration-slowest) linear infinite;
+  color: var(--color-text-primary);
+}
+
+/* ─── Full Width ─── */
+.fullWidth {
+  width: 100%;
+}
+
+/* ─── Icon ─── */
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sm .icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.lg .icon svg {
+  width: 18px;
+  height: 18px;
+}

@@ -1,0 +1,605 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — Fan Companion Page  (Milestone 7)
+   Mobile-first fan experience with tabbed navigation.
+   ═══════════════════════════════════════════════════════════ */
+
+.page {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-4);
+  animation: fadeIn var(--duration-slow) var(--ease-out);
+}
+
+.phone {
+  width: 100%;
+  max-width: 430px;
+  min-height: 780px;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-xl);
+  position: relative;
+}
+
+/* ─── Top Bar ─── */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+
+.topBarBrand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.topBarBrand svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-accent);
+}
+
+.topBarRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.langBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-micro);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  animation: pulse 2s var(--ease-in-out) infinite;
+}
+
+/* ─── Content Area ─── */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ─── Bottom Tab Bar ─── */
+.tabBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: var(--space-2) 0 var(--space-3);
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border-secondary);
+}
+
+.tabItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-1) var(--space-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  transition: color var(--duration-fast) var(--ease-default);
+  font-size: 10px;
+  font-weight: var(--weight-medium);
+}
+
+.tabItem svg {
+  width: 20px;
+  height: 20px;
+}
+
+.tabItem.active {
+  color: var(--color-accent);
+}
+
+.tabItem:hover {
+  color: var(--color-text-secondary);
+}
+
+/* ─── Home Tab ─── */
+.matchCard {
+  padding: var(--space-4);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.matchTeams {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  margin-bottom: var(--space-3);
+}
+
+.teamFlag {
+  font-size: 2rem;
+}
+
+.matchScore {
+  font-size: var(--text-h1);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+
+.teamName {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+.matchMinute {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  background: var(--color-success-muted);
+  color: var(--color-success);
+  border-radius: var(--radius-full);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  font-family: var(--font-mono);
+}
+
+.matchMinuteDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  animation: pulse 1.5s var(--ease-in-out) infinite;
+}
+
+.seatCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+}
+
+.seatIcon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-accent);
+}
+
+.seatIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.seatInfo {
+  flex: 1;
+}
+
+.seatLabel {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+}
+
+.seatValue {
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+}
+
+.seatType {
+  padding: 2px var(--space-2);
+  background: hsla(38, 92%, 55%, 0.15);
+  color: hsl(38, 92%, 55%);
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+.quickLinks {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.quickLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--text-caption);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.quickLink:hover {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+}
+
+.quickLink svg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* ─── Navigate Tab ─── */
+.stadiumMap {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.mapSvg {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1;
+}
+
+.mapLabel {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  text-align: center;
+}
+
+.seatFinder {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.seatInput {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-size: var(--text-caption);
+  font-family: var(--font-mono);
+}
+
+.seatInput::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.findBtn {
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+/* ─── Queue Tab ─── */
+.queueList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.queueCard {
+  padding: var(--space-3);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+}
+
+.queueHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.queueName {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.queueType {
+  font-size: 10px;
+  padding: 1px var(--space-2);
+  border-radius: var(--radius-xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+}
+
+.queueType.food { background: var(--color-warning-subtle); color: var(--color-warning); }
+.queueType.restroom { background: var(--color-info-muted); color: var(--color-info); }
+.queueType.merchandise { background: hsla(270, 60%, 58%, 0.15); color: hsl(270, 60%, 58%); }
+
+.queueMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: var(--text-micro);
+  color: var(--color-text-secondary);
+}
+
+.queueWait {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+}
+
+.queueWait svg {
+  width: 12px;
+  height: 12px;
+}
+
+.queueBest {
+  color: var(--color-success);
+  font-weight: var(--weight-medium);
+}
+
+/* ─── Assistant Tab ─── */
+.chatContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 400px;
+}
+
+.chatMessages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  overflow-y: auto;
+}
+
+.chatBubble {
+  max-width: 85%;
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-caption);
+  line-height: var(--leading-relaxed);
+  animation: slideInUp var(--duration-normal) var(--ease-out);
+  white-space: pre-wrap;
+}
+
+.chatBubble.assistant {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  color: var(--color-text-secondary);
+  align-self: flex-start;
+  border-bottom-left-radius: var(--radius-xs);
+}
+
+.chatBubble.user {
+  background: var(--color-accent);
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: var(--radius-xs);
+}
+
+.chatTime {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  margin-top: var(--space-1);
+}
+
+.quickActionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.quickActionBtn {
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-full);
+  font-size: var(--text-micro);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+  white-space: nowrap;
+}
+
+.quickActionBtn:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-accent-muted);
+  color: var(--color-accent-text);
+}
+
+.chatInputRow {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.chatInput {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-full);
+  color: var(--color-text-primary);
+  font-size: var(--text-caption);
+}
+
+.chatInput::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.sendBtn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-full);
+  color: white;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+  flex-shrink: 0;
+}
+
+.sendBtn:hover {
+  background: var(--color-accent-hover);
+}
+
+.sendBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.typingIndicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-primary);
+  align-self: flex-start;
+  width: fit-content;
+}
+
+.typingDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-text-tertiary);
+  animation: blink 1.4s var(--ease-in-out) infinite;
+}
+
+.typingDot:nth-child(2) { animation-delay: 0.2s; }
+.typingDot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ─── Emergency Tab ─── */
+.emergencyContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.sosButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-8);
+  background: var(--color-danger-muted);
+  border: 2px solid var(--color-danger);
+  border-radius: var(--radius-xl);
+  color: var(--color-danger);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-default);
+}
+
+.sosButton:hover {
+  background: var(--color-danger);
+  color: white;
+  box-shadow: 0 0 40px hsla(0, 72%, 58%, 0.3);
+}
+
+.sosButton svg {
+  width: 48px;
+  height: 48px;
+}
+
+.sosLabel {
+  font-size: var(--text-body);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+.emergencyCard {
+  padding: var(--space-4);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+}
+
+.emergencyCardTitle {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.emergencyCardTitle svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-danger);
+}
+
+.emergencyCardText {
+  font-size: var(--text-micro);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* ─── Section Header ─── */
+.sectionHeader {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  margin-bottom: var(--space-1);
+}

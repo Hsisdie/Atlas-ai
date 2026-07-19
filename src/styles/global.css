@@ -1,0 +1,68 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — Global Styles
+   Application-wide styles, utilities, and shared patterns.
+   ═══════════════════════════════════════════════════════════ */
+
+@import './variables.css';
+@import './reset.css';
+@import './animations.css';
+
+/* ─── Utility Classes ─── */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* ─── Glass Effect Utility ─── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+.glass-heavy {
+  background: var(--glass-bg-heavy);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+}
+
+/* ─── Root App ─── */
+body {
+  transition: background-color var(--duration-slower) var(--ease-in-out);
+  background-image: 
+    radial-gradient(circle at 15% 50%, hsla(215, 100%, 58%, 0.03), transparent 25%),
+    radial-gradient(circle at 85% 30%, hsla(265, 80%, 60%, 0.03), transparent 25%);
+  background-size: 200% 200%;
+  animation: meshGradient 20s ease infinite;
+}
+
+body[data-phase="nominal"] { background-color: var(--phase-nominal-bg); }
+body[data-phase="alert"] { background-color: var(--phase-alert-bg); }
+body[data-phase="crisis"] { background-color: var(--phase-crisis-bg); }
+body[data-phase="recovery"] { background-color: var(--phase-recovery-bg); }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+}

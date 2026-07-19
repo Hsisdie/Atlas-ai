@@ -1,0 +1,117 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — Crowd Heatmap
+   Visual zone density grid with color-coded indicators.
+   ═══════════════════════════════════════════════════════════ */
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  transition: background var(--duration-fast) var(--ease-default);
+  cursor: default;
+}
+
+.row:hover {
+  background: var(--color-bg-hover);
+}
+
+.zoneName {
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  min-width: 100px;
+  font-weight: var(--weight-medium);
+}
+
+.barContainer {
+  flex: 1;
+  height: 20px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width 1s var(--ease-spring);
+  position: relative;
+  min-width: 2px;
+}
+
+.barFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  background: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, 0.15));
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 120px;
+  justify-content: flex-end;
+}
+
+.density {
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+  font-weight: var(--weight-medium);
+  min-width: 36px;
+  text-align: right;
+}
+
+.fans {
+  font-size: var(--text-caption);
+  color: var(--color-text-tertiary);
+  font-family: var(--font-mono);
+  min-width: 48px;
+  text-align: right;
+}
+
+.trend {
+  font-size: var(--text-caption);
+  min-width: 14px;
+  text-align: center;
+}
+
+.trendUp { color: var(--color-danger); }
+.trendDown { color: var(--color-success); }
+.trendStable { color: var(--color-text-tertiary); }
+
+/* ─── Summary Bar ─── */
+.summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-3) 0;
+  border-top: 1px solid var(--color-border-secondary);
+  margin-top: var(--space-2);
+}
+
+.summaryItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-caption);
+  color: var(--color-text-tertiary);
+}
+
+.summaryDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-xs);
+}

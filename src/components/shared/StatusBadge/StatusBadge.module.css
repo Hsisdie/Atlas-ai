@@ -1,0 +1,80 @@
+/* ═══════════════════════════════════════════════════════════
+   AtlasOS — StatusBadge Component
+   Color-coded status with animated pulse indicator.
+   ═══════════════════════════════════════════════════════════ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+/* ─── Dot ─── */
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.animated .dot {
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+/* ─── Variants ─── */
+.operational {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+}
+.operational .dot { background: var(--color-success); color: var(--color-success); }
+
+.warning {
+  background: var(--color-warning-subtle);
+  color: var(--color-warning);
+}
+.warning .dot { background: var(--color-warning); color: var(--color-warning); }
+
+.critical {
+  background: var(--color-danger-subtle);
+  color: var(--color-danger);
+}
+.critical .dot { background: var(--color-danger); color: var(--color-danger); }
+
+.offline {
+  background: hsla(228, 10%, 42%, 0.15);
+  color: var(--color-text-tertiary);
+}
+.offline .dot { background: var(--color-text-tertiary); color: var(--color-text-tertiary); }
+
+.info {
+  background: var(--color-info-muted);
+  color: var(--color-info);
+}
+.info .dot { background: var(--color-info); color: var(--color-info); }
+
+/* ─── Sizes ─── */
+.sm {
+  font-size: var(--text-micro);
+  padding: 2px 8px;
+}
+.sm .dot { width: 5px; height: 5px; }
+
+.lg {
+  font-size: var(--text-sm);
+  padding: 4px 14px;
+}
+.lg .dot { width: 8px; height: 8px; }
+
+/* ─── Dot Only (no text) ─── */
+.dotOnly {
+  padding: 0;
+  background: transparent;
+  gap: 0;
+}

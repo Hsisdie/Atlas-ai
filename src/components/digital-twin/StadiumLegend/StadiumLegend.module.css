@@ -1,0 +1,81 @@
+/* ═══════════════════════════════════════════════════════════
+   StadiumLegend CSS Module
+   ═══════════════════════════════════════════════════════════ */
+
+.legend {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  pointer-events: auto;
+}
+
+.densitySection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: var(--text-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+}
+
+.gradientBar {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    to right,
+    var(--color-success),
+    var(--color-warning),
+    var(--color-danger)
+  );
+  width: 100%;
+}
+
+.gradientLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-micro);
+  font-family: var(--font-mono);
+  color: var(--color-text-tertiary);
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-border-primary);
+  width: 100%;
+}
+
+.typeSection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2) var(--space-4);
+}
+
+.typeItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.typeDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.typeLabel {
+  font-size: var(--text-caption);
+  color: var(--color-text-primary);
+}

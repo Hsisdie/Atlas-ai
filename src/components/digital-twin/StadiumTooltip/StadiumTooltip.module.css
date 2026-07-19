@@ -1,0 +1,107 @@
+/* ═══════════════════════════════════════════════════════════
+   StadiumTooltip Styles
+   ═══════════════════════════════════════════════════════════ */
+
+.tooltip {
+  position: fixed;
+  z-index: var(--z-tooltip);
+  pointer-events: none;
+  min-width: 200px;
+  max-width: 260px;
+  padding: var(--space-3) var(--space-4);
+  background: hsla(228, 25%, 10%, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border-hover);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl), 0 0 30px hsla(215, 100%, 58%, 0.08);
+  transform: translate(-50%, calc(-100% - 12px));
+  transition: opacity var(--duration-fast) var(--ease-out);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.type {
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+.name {
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--leading-tight);
+}
+
+.barTrack {
+  width: 100%;
+  height: 4px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--duration-normal) var(--ease-out);
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+}
+
+.pct {
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.meta {
+  font-size: var(--text-caption);
+  color: var(--color-text-tertiary);
+}
+
+.alerts {
+  font-size: var(--text-caption);
+  color: var(--color-warning);
+  font-weight: var(--weight-medium);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.tag {
+  font-size: var(--text-micro);
+  padding: 2px var(--space-2);
+  background: var(--color-accent-subtle);
+  color: var(--color-accent-text);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
