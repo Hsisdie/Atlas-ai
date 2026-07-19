@@ -1,68 +1,51 @@
 <div align="center">
   <h1>🌍 Atlas AI</h1>
   <p><strong>A Professional Multi-Agent System, Digital Twin, and Scenario Simulator</strong></p>
-  <p><i>Ready for PromptWars 2026 Submission</i></p>
+  <p><i>Ready for Submission</i></p>
 </div>
 
 <br />
 
-## 📖 Project Overview
-Atlas AI is a state-of-the-art intelligent application that bridges the gap between physical infrastructure and artificial intelligence. By integrating a multi-agent system with real-time digital twin technology and scenario simulation, Atlas AI allows administrators, operators, and analysts to predict, simulate, and resolve complex infrastructural problems autonomously.
+## 📖 Challenge Submission Details
 
-## 🎯 Problem Statement
-Managing large-scale infrastructural systems in real-time is often reactive, resulting in delayed responses to critical situations, inefficiencies, and lack of predictive insights. Traditional systems lack the cognitive flexibility to simulate diverse scenarios and automatically prescribe solutions.
+### 1. Chosen Vertical: **Smart Stadium & Event Infrastructure Management**
+Managing large-scale infrastructural systems like stadiums during live events is highly complex and reactive. Security, crowd flow, environmental controls, and parking are traditionally siloed. **Atlas AI** targets this vertical by serving as a central, proactive intelligence layer that connects physical infrastructure (via a Digital Twin) with a network of specialized AI agents.
 
-## 💡 Solution
-Atlas AI solves this by deploying a network of intelligent agents powered by Gemini, constantly analyzing a Digital Twin of the infrastructure. It provides a Scenario Simulator to test "what-if" models, enabling proactive management and automated incident response recommendations.
+### 2. Approach and Logic
+Our approach bridges **Multi-Agent Orchestration** with **Digital Twin Technology**:
+- **Data Ingestion:** The Digital Twin acts as the single source of truth, mocking real-time telemetry (crowd density, temperature, structural health, parking capacity).
+- **Multi-Agent System:** Specialized AI agents (e.g., Crowd Flow Agent, Security Agent, Environmental Agent) continuously monitor their specific domains. 
+- **Centralized Reasoning (Atlas Brain):** The agents feed their findings to the "Atlas Brain," which uses the **Google Gemini LLM** to synthesize the data, identify cross-domain anomalies, and generate high-confidence predictions and recommendations.
+- **Scenario Simulation:** Administrators can inject stress-test scenarios (e.g., "Fire Alarm in Sector B") to observe how the AI predicts crowd panic and recommends evacuation routes in real-time.
 
-## ✨ Key Features
-- **Multi-Agent Orchestration**: Specialized AI agents (security, environment, operations) collaborating in real-time.
-- **Digital Twin Sync**: Live synchronization of physical asset states to a virtual replica.
-- **Scenario Simulator**: Predictive modeling and "what-if" analysis for edge cases and disasters.
-- **Gemini-Powered Engine**: Advanced LLM reasoning for dynamic context understanding and resolution planning.
+### 3. How the Solution Works
+1. **The Dashboard:** Operators view a real-time Command Center showing active alerts, stadium health, and crowd heatmaps.
+2. **Dynamic AI Engine:** When an anomaly occurs (e.g., sudden crowd density spike), the `aiService` packages the current Digital Twin state into a strict JSON schema prompt and sends it to the Gemini API.
+3. **Structured Response:** Gemini responds with structured JSON containing:
+   - **Predictions:** What is likely to happen next (e.g., bottleneck at Gate 4).
+   - **Recommendations:** Specific actions (e.g., deploy stewards, open auxiliary exits).
+   - **Reasoning:** Step-by-step logic explaining *why* the AI made these recommendations, ensuring full transparency.
+4. **Execution:** The recommendations are displayed beautifully in the UI for the human operator to approve.
 
-## 🤖 AI Workflow
-The workflow relies on a continuous feedback loop:
-1. **Data Ingestion**: Real-time telemetry from the Digital Twin.
-2. **Agent Analysis**: Distributed analysis by specialized agents (e.g., Security Agent, Crowd Flow Agent).
-3. **Consensus & Recommendation**: The central Atlas Brain synthesizes agent reports and generates actionable insights via Gemini.
-4. **Simulation**: Proposed actions are simulated before deployment.
+### 4. Assumptions Made
+- We assume that the physical stadium is heavily instrumented with IoT sensors (cameras, temperature sensors, ticketing gates) capable of feeding real-time data to the Digital Twin.
+- For the sake of this prototype, sensor telemetry is simulated dynamically on the frontend.
+- We assume human-in-the-loop operation: the AI recommends, but a human operator ultimately approves critical actions.
 
-## 🏛 Architecture
-Built with scalability in mind:
-- **Frontend**: React 19, Vite, TypeScript, Framer Motion for smooth micro-animations.
-- **Styling**: Vanilla CSS with comprehensive CSS Variables for theming (Design System).
-- **AI Layer**: `@google/genai` integration for intelligent recommendations.
-- **Routing**: React Router DOM.
+---
 
-## 🛠 Tech Stack
-- **Framework**: React (Vite)
-- **Language**: TypeScript
-- **AI Integration**: Google GenAI SDK (Gemini)
-- **Visualization**: Recharts, Framer Motion
-- **Icons**: Lucide React
+## 🛠 Tech Stack & Architecture
+- **Frontend Framework:** React 19 + Vite (TypeScript)
+- **Styling & Animations:** Vanilla CSS + Framer Motion (for premium micro-animations)
+- **AI Integration:** `@google/genai` SDK for robust, dynamic reasoning
+- **State Management:** React Context API for global simulation state sync
 
-## 📂 Folder Structure
-```text
-atlas-ai/
-├── docs/                # Comprehensive architectural and technical documentation
-├── public/              # Static assets
-└── src/
-    ├── components/      # Reusable React components (Dashboard, Shared, Digital Twin)
-    ├── context/         # React Context for state management (Simulation, AI)
-    ├── data/            # Mock data and models
-    ├── pages/           # Route views (MultiAgent, Simulator, AIEngine, DigitalTwin)
-    ├── services/        # API and AI integration services
-    ├── styles/          # Global CSS, variables, resets
-    └── types/           # TypeScript definitions
-```
-
-## 🚀 Installation Guide
+## 🚀 Installation & Setup
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/PromptWars/atlas-ai.git
-   cd atlas-ai
+   git clone https://github.com/Hsisdie/Atlas-ai.git
+   cd Atlas-ai
    ```
 
 2. **Install dependencies:**
@@ -70,36 +53,21 @@ atlas-ai/
    npm install
    ```
 
-## 🔐 Environment Variables
-Create a `.env` file in the root directory and add your required keys:
-```env
-VITE_GEMINI_API_KEY=your_gemini_api_key_here
-```
+3. **Configure Environment Variables:**
+   Create a `.env` file in the root directory and add your Gemini API key:
+   ```env
+   VITE_GEMINI_API_KEY=your_gemini_api_key_here
+   ```
 
-## 💻 Running Locally
-Start the development server:
-```bash
-npm run dev
-```
-The application will be available at `http://localhost:5173`.
+4. **Start the Application:**
+   ```bash
+   npm run dev
+   ```
+   The application will be available at `http://localhost:5173`.
 
-## 📦 Deployment
-To build for production:
-```bash
-npm run build
-```
-This generates the optimized bundle in the `dist` folder.
+## 🔒 Security Note
+This repository follows security best practices. The `.env` file is excluded via `.gitignore` to ensure API keys are never exposed in version control. If deploying to production, environment variables should be injected securely via the hosting provider.
 
-## 📸 Screenshots Section
-*(Add screenshots of the Dashboard, Multi-Agent view, Digital Twin, and Simulator to `docs/screenshots`)*
-
-## 🔮 Future Improvements
-- Persistent backend integration for real-time telemetry instead of mocked data.
-- Expansion of the Multi-Agent system to support custom agent plugins.
-- Advanced 3D rendering for the Digital Twin using Three.js.
-
-## 👥 Team
-- **PromptWars 2026 Team** - *Core Developers*
-
-## 📜 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 🤝 Team
+- **Developed for the 2026 AI Challenge**
+- **License:** MIT
